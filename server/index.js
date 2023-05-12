@@ -10,8 +10,8 @@ const PORT = process.env.PORT || 8000
 
 //middlware
 
-//const cors = require('cors')
-//app.use(cors());
+const cors = require('cors')
+app.use(cors());
 app.use(express.json())
 
 //we are getting a static html file
