@@ -10,6 +10,11 @@ const PORT = process.env.PORT || 8000
 
 //middlware
 /* --- */
+const bodyParser = require('body-parser')
+
+//req.body will work
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 //we are getting a static html file
 app.use(express.static(path.resolve(__dirname, '../client/build')));
