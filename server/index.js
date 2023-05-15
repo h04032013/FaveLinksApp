@@ -9,10 +9,7 @@ const path = require('path')
 const PORT = process.env.PORT || 8000
 
 //middlware
-
-const cors = require('cors')
-app.use(cors());
-app.use(express.json())
+/* --- */
 
 //we are getting a static html file
 app.use(express.static(path.resolve(__dirname, '../client/build')));
@@ -29,7 +26,6 @@ app.get('/test', (req, res) => {
 //GET: /links
 //Should return the links stored on your Postgres database
  app.get('/links', db.getLinks) 
-
 
 
 app.listen(PORT, (req, res) => {
