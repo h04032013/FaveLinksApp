@@ -24,7 +24,7 @@ const getLinks = (req, res) =>{
 
 //Read by id
 const getLinksById = (req, res) => {
-    const id = parseInt(req.params.id)
+    const id = req.params.id
     pool.query('SELECT * FROM links WHERE id=$1',[id],
     (error , result) => {
         if (error){
@@ -37,22 +37,47 @@ const getLinksById = (req, res) => {
 //create new links
 const createLink = (req,res) => {
     const { name, url} = req.body
-    pool.query('INSERT INTO links (name, url) VALUES ($1, $2) RETURNING *', [name, url], 
+    pool.query('INSERT INTO links (name, url) VALUES ($1, $2) RETURNING *;', [name, url], 
     (error, results) => {
         if (error) {
             throw error
     }
-    res.status(201).send('New link created with id:' + results.rows[0].id)
+    res.status(201).send(`New link created with id:' + ${results.rows[0].id}`)
 })
 }
 
 //update link
+const updateLink = (req, res) => {
+    const id = req.params.id 
+    const {name, url} = req.body
 
+    pool.query('UPDATE link SET name = $1, url = $2 WHERE id = $3', [name, url, id],
+    (error, results) => {
+        if (error) {
+            throw error
+        } res.status(200).send(`Link updated, id: ${id}`)
+    }
+    )
+}
 
 //delete function
+const deleteLink = (req, res) => {
+    const id = req.params.id 
+
+    pool.query('DELETE FROM links WHERE id=$1', [id],
+    (error, results) => {
+        if (error) {
+            throw error
+        } res.status(200).send(`Link deleted, id: ${id}`)
+    }
+    )
+}
 
 module.exports = {
     getLinks,
     getLinksById,
     createLink,
+    updateLink,
+    deleteLink,
+
 }

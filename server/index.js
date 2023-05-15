@@ -25,8 +25,22 @@ app.get('/test', (req, res) => {
 
 //GET: /links
 //Should return the links stored on your Postgres database
- app.get('/links', db.getLinks) 
+ app.get('/links', db.getLinks)
+ 
+//GET: /links/:id
+//Should return the links stored on your Postgres database
+app.get('/links/:id', db.getLinksById)
 
+//POST: /links
+//Should return the links stored on your Postgres database
+app.post('/links', db.createLink)
+
+//PUT: /links/:id
+//update link by id
+app.put('/links/:id', db.updateLink)
+
+//DELETE: /links/:id
+app.delete('/links/:id', db.deleteLink)
 
 app.listen(PORT, (req, res) => {
     console.log(`App is running on port ${PORT}.`)
